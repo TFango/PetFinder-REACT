@@ -1,0 +1,104 @@
+.root {
+  position: relative;
+  width: 100%;
+}
+
+.container {
+  background-color: rgba(38, 48, 46, 1);
+
+  border-radius: 0 0px 10px 10px;
+
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-left: 10px;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menuIcon {
+  height: 24px;
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(38, 48, 46, 1);
+  z-index: 1000;
+  padding: 24px;
+}
+
+.menuContent {
+  background-color: rgba(38, 48, 46, 1);
+
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.closeMenu {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuNav {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.menuItem {
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: lato;
+}
+
+.menuFooter {
+  text-align: center;
+}
+
+.menuEmail {
+  color: #cfdede;
+  font-size: 14px;
+  margin-bottom: 16px;
+  font-family: lato;
+}
+
+.menuLogout {
+  background: none;
+  border: none;
+  color: #4fd1c5;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: lato;
+}
