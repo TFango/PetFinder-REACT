@@ -7,16 +7,18 @@ import { Layout } from "../components/layout";
 
 //Pages
 import { Home } from "../pages/home";
-import { PetsNearby } from "../pages/petsNearby";
-import { ReportInfoPet } from "../pages/reportInfoPet";
+import { AuthEmail } from "../pages/authEmail";
+import { Register } from "../pages/register";
+import { Login } from "../pages/login";
 
 export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="pets/nearby" element={<PetsNearby />} />
-        <Route path="pets/reportInfo" element={<ReportInfoPet />} />
+        <Route path="auth/authEmail" element={<AuthEmail />} />
+        <Route path="auth/register" element={<Register />} />
+        <Route path="auth/login" element={<Login />} />
       </Route>
     </Routes>
   );

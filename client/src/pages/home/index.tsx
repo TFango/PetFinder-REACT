@@ -1,6 +1,8 @@
 import React from "react";
 
 import { Button } from "../../ui/button";
+import { HomeHero } from "../../components/homeHero";
+
 import { useNavigate } from "react-router-dom";
 
 export function Home() {
@@ -8,8 +10,7 @@ export function Home() {
 
   return (
     <div>
-      <p>Home</p>
-      <Button onClick={() => navigate("/pets/nearby")}>Pets nearby</Button>
+      <HomeHero />
     </div>
   );
 }

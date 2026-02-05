@@ -1,0 +1,25 @@
+.root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.description {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 1);
+}
+
+.btn {
+  background: none;
+  border: none;
+  color: rgba(90, 143, 236, 1);
+  font-family: "SN Pro";
+  font-size: 16px;
+}

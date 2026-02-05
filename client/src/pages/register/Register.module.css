@@ -1,0 +1,26 @@
+.root {
+  height: calc(100dvh - 60px);
+  display: flex;
+  justify-content: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+}
+
+.info{
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.title{
+    font-size: 36px;
+    margin-bottom: 25px;
+}
+
+.description{
+    font-size: 16px;
+}
