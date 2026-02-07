@@ -1,0 +1,18 @@
+.root {
+  height: calc(100dvh - 60px);
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 50px 0;
+  width: 85%;
+}
+
+.title {
+  font-size: 36px;
+  align-self: center;
+}

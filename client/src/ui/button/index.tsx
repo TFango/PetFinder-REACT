@@ -8,11 +8,24 @@ type Props = {
   variant?: ButtonVariant;
   onClick?: () => void;
   children: ReactNode;
+  disabled?: boolean;
+  type?: "button" | "submit";
 };
 
-export function Button({ variant = "blue", onClick, children }: Props) {
+export function Button({
+  variant = "blue",
+  onClick,
+  children,
+  disabled = false,
+  type = "button",
+}: Props) {
   return (
-    <button onClick={onClick} className={`${styles.root} ${styles[variant]}`}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${styles.root} ${styles[variant]}`}
+    >
       {children}
     </button>
   );

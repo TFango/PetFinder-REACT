@@ -9,15 +9,16 @@ type Props = {
   name: string;
   type: InputType;
   label: string;
+  defaultValue?: string;
 };
 
-export function TextField({ id, name, type, label }: Props) {
+export function TextField({ id, name, type, label, defaultValue }: Props) {
   return (
     <div className={styles.root}>
       <label htmlFor={id} className={styles.label}>
         {label}
       </label>
-      <input id={id} type={type} name={name} className={styles.input} />
+      <input id={id} type={type} name={name} className={styles.input} defaultValue={defaultValue}/>
     </div>
   );
 }

@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 17px;
+}
+
+.email {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.btn {
+  align-self: center;
+  background: none;
+  border: none;
+  color: rgba(59, 151, 211, 1);
+  font-size: 16px;
+  font-family: "SN Pro";
+}

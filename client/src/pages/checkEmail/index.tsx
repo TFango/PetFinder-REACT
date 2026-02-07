@@ -4,7 +4,7 @@ import { AuthForm } from "../../components/authForm";
 
 import styles from "./AuthEmail.module.css";
 
-export function AuthEmail() {
+export function CheckEmail() {
   return (
     <main className={styles.root}>
       <div className={styles.container}>

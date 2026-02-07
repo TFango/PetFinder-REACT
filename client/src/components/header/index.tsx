@@ -1,13 +1,15 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Header.module.css";
 
 import { MenuButton } from "./Menu/MenuButton";
-import { UserMenu } from "./Menu/UserMenu";
+import { Menu } from "./Menu/Menu";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpenMenu = () => {
     setOpen(true);
@@ -17,15 +19,24 @@ export function Header() {
     setOpen(false);
   };
 
+  const handlerClick = () => {
+    navigate("/");
+  };
+
   return (
     <header className={styles.root}>
       <div className={styles.container}>
-        <img src="/icons/icon.svg" alt="" className={styles.logo} />
+        <img
+          src="/icons/icon.svg"
+          alt=""
+          className={styles.logo}
+          onClick={handlerClick}
+        />
 
         <MenuButton onClick={handleOpenMenu} />
       </div>
 
-      {open && <UserMenu onClose={handleCloseMenu} />}
+      {open && <Menu onClose={handleCloseMenu} />}
     </header>
   );
 }

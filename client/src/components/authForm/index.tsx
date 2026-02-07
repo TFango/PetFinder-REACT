@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./AuthForm.module.css";
 
+import { useAuth } from "../../hooks/useAuth";
+import { useUser } from "../../hooks/useUser";
+
 type Props = {
   mode: "email" | "login" | "register";
 };
@@ -13,8 +16,52 @@ type Props = {
 export function AuthForm({ mode }: Props) {
   const navigate = useNavigate();
 
+  const buttonText = {
+    email: "Continuar",
+    login: "Acceder",
+    register: "Siguiente",
+  }[mode];
+  const { checkEmail, register, login, loading, error } = useAuth();
+  const { getMe } = useUser();
+
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+
+    const email = (
+      form.elements.namedItem("email") as HTMLInputElement
+    ).value.trim();
+
+    if (mode === "email") {
+      await checkEmail(email);
+    }
+
+    const password = (
+      form.elements.namedItem("password") as HTMLInputElement
+    ).value.trim();
+
+    if (mode === "login") {
+      await login(email, password);
+      await getMe();
+    }
+
+    if (mode === "register") {
+      const name = (
+        form.elements.namedItem("name") as HTMLInputElement
+      ).value.trim();
+
+      const passConfirm = (
+        form.elements.namedItem("confirmPassword") as HTMLInputElement
+      ).value.trim();
+
+      await register(email, password, passConfirm, name);
+      await getMe();
+    }
+  }
+
   return (
-    <form action="" className={styles.root}>
+    <form onSubmit={handleSubmit} action="" className={styles.root}>
       <TextField id="email" name="email" type="email" label="EMAIL" />
 
       {mode === "login" && (
@@ -28,6 +75,7 @@ export function AuthForm({ mode }: Props) {
 
       {mode === "register" && (
         <>
+          <TextField id="name" name="name" type="text" label="NOMBRE" />
           <TextField
             id="password"
             name="password"
@@ -43,10 +91,8 @@ export function AuthForm({ mode }: Props) {
         </>
       )}
 
-      <Button variant="blue">
-        {mode === "email" && "Continuar"}
-        {mode === "login" && "Acceder"}
-        {mode === "register" && "Siguiente"}
+      <Button variant="blue" type="submit" disabled={loading}>
+        {loading ? "Cargando..." : buttonText}
       </Button>
 
       <section className={styles.info}>
