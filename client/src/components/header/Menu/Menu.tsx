@@ -38,13 +38,13 @@ export function Menu({ onClose }: Props) {
             Mis datos
           </button>
           <button
-            onClick={() => handleGo("pets/report")}
+            onClick={() => handleGo("pets/myPetsReport")}
             className={styles.menuItem}
           >
             Mis mascotas reportadas
           </button>
           <button
-            onClick={() => handleGo("pets/myPetsReport")}
+            onClick={() => handleGo("pets/report")}
             className={styles.menuItem}
           >
             Reportar mascota

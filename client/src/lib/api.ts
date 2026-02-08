@@ -13,9 +13,10 @@ const store = getDefaultStore();
 
 export async function apiFetch(path: string, options: ApiOptions = {}) {
   const { method = "GET", body, token } = options;
+  
 
   const auth = store.get(authAtom);
-
+  
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };

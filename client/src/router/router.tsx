@@ -15,6 +15,9 @@ import { MyPetsReport } from "../pages/myPetsReport";
 import { ReportPet } from "../pages/reportPet";
 import { MyData } from "../pages/myData";
 import { ChangePassword } from "../pages/changePassword";
+import { EditPet } from "../pages/editPet";
+import { PetsEmpty } from "../pages/petsEmpty";
+import { PetsNearby } from "../pages/petsNearby";
 
 import { ProtectedRoute } from "../components/protectedRoute/ProtectedRoute";
 
@@ -28,29 +31,32 @@ export function AppRoutes() {
         <Route path="auth/login" element={<Login />} />
         <Route path="user/myData" element={<MyData />} />
         <Route path="user/changePassword" element={<ChangePassword />} />
+        <Route path="pets/:petId" element={<EditPet />} />
+        <Route path="pets/empty" element={<PetsEmpty />} />
+        <Route path="pets/nearby" element={<PetsNearby />} />
         //Rutas protegidas
         <Route
           path="user/menu"
           element={
-            // <ProtectedRoute>
-            <UserMenu />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <UserMenu />
+            </ProtectedRoute>
           }
         />
         <Route
           path="pets/report"
           element={
-            // <ProtectedRoute>
-            <ReportPet />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <ReportPet />
+            </ProtectedRoute>
           }
         />
         <Route
           path="pets/myPetsReport"
           element={
-            // <ProtectedRoute>
-            <MyPetsReport />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <MyPetsReport />
+            </ProtectedRoute>
           }
         />
       </Route>

@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { apiFetch } from "../lib/api";
 
-import { useAtomValue } from "jotai";
+import { authWithStorageAtom } from "../atoms/auth";
 import { useAtom } from "jotai";
 
 import { authAtom } from "../atoms/auth";
 
 import { useNavigate } from "react-router-dom";
+import { userAtom } from "../atoms/user";
 
 export function useAuth() {
   const navigate = useNavigate();
 
-  const [auth, setAuth] = useAtom(authAtom);
+  const [auth, setAuth] = useAtom(authWithStorageAtom);
+  const [, setUser] = useAtom(userAtom);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -63,6 +65,10 @@ export function useAuth() {
         isLoggedIn: true,
       });
 
+      const me = await apiFetch("/me");
+      const { email: _e, ...userData } = me;
+      setUser(userData);
+
       navigate("/");
     } catch (err: any) {
       setError("Error al registrarse");
@@ -87,6 +93,10 @@ export function useAuth() {
         isLoggedIn: true,
       });
 
+      const me = await apiFetch("/me");
+      const { email: _e, ...userData } = me;
+      setUser(userData);
+
       navigate("/");
     } catch (err: any) {
       setError("Error al loguearse");
@@ -97,10 +107,11 @@ export function useAuth() {
 
   async function logout() {
     setAuth({
-      email: null,
+      email: "",
       token: null,
       isLoggedIn: false,
     });
+    localStorage.removeItem("auth");
 
     navigate("/");
   }

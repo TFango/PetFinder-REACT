@@ -23,3 +23,8 @@
 .gray {
   background-color: rgba(74, 85, 83, 1);
 }
+
+.editPet {
+  width: 100px;
+  background-color: rgba(90, 143, 236, 1);
+}

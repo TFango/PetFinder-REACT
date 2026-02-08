@@ -6,8 +6,4 @@ export type UserState = {
   location: string | "";
 };
 
-export const userAtom = atom<UserState>({
-  id: null,
-  name: "",
-  location: "",
-});
+export const userAtom = atom<UserState | null>(null);

@@ -2,10 +2,8 @@ import { apiFetch } from "../lib/api";
 
 import { useState } from "react";
 
-import { useAtomValue } from "jotai";
 import { useAtom } from "jotai";
 
-import { authAtom } from "../atoms/auth";
 import { userAtom } from "../atoms/user";
 
 import { useNavigate } from "react-router-dom";
@@ -35,6 +33,9 @@ export function useUser() {
 
   async function updateMe(newName?: string, newLocation?: string) {
     try {
+      setLoading(true);
+      setError(null);
+
       const body: any = {};
       if (newName) body.newName = newName;
       if (newLocation) body.newLocation = newLocation;
@@ -50,10 +51,33 @@ export function useUser() {
         ...prev,
         ...userData,
       }));
+      navigate("/");
     } catch (err: any) {
+      setError("Error al modificar la data");
     } finally {
+      setLoading(false);
     }
   }
 
-  return { getMe, updateMe, loading, error };
+  async function changePassword(newPassword: string) {
+    try {
+      setLoading(true);
+      setError(null);
+
+      console.log();
+
+      await apiFetch("/auth/password", {
+        method: "PATCH",
+        body: { newPassword },
+      });
+
+      navigate("/");
+    } catch (erra: any) {
+      setError("Error al modificar la contraseña");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { getMe, updateMe, changePassword, loading, error };
 }

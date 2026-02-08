@@ -2,7 +2,7 @@ import React, { type ReactNode } from "react";
 
 import styles from "./Button.module.css";
 
-type ButtonVariant = "blue" | "green" | "red" | "gray";
+type ButtonVariant = "blue" | "green" | "red" | "gray" | "editPet";
 
 type Props = {
   variant?: ButtonVariant;
