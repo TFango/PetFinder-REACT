@@ -29,18 +29,24 @@ export function AuthForm({ mode }: Props) {
 
     const form = e.currentTarget;
 
-    const email = (
-      form.elements.namedItem("email") as HTMLInputElement
-    ).value.trim();
+    const emailInput = form.elements.namedItem(
+      "email",
+    ) as HTMLInputElement | null;
+    if (!emailInput) return;
+
+    const email = emailInput.value.trim();
 
     if (mode === "email") {
       await checkEmail(email);
-      return;
+      return; // 🔴 CLAVE
     }
 
-    const password = (
-      form.elements.namedItem("password") as HTMLInputElement
-    ).value.trim();
+    const passwordInput = form.elements.namedItem(
+      "password",
+    ) as HTMLInputElement | null;
+    if (!passwordInput) return;
+
+    const password = passwordInput.value.trim();
 
     if (mode === "login") {
       await login(email, password);
@@ -49,15 +55,21 @@ export function AuthForm({ mode }: Props) {
     }
 
     if (mode === "register") {
-      const name = (
-        form.elements.namedItem("name") as HTMLInputElement
-      ).value.trim();
+      const nameInput = form.elements.namedItem(
+        "name",
+      ) as HTMLInputElement | null;
+      const confirmInput = form.elements.namedItem(
+        "confirmPassword",
+      ) as HTMLInputElement | null;
 
-      const passConfirm = (
-        form.elements.namedItem("confirmPassword") as HTMLInputElement
-      ).value.trim();
+      if (!nameInput || !confirmInput) return;
 
-      await register(email, password, passConfirm, name);
+      await register(
+        email,
+        password,
+        confirmInput.value.trim(),
+        nameInput.value.trim(),
+      );
       await getMe();
     }
   }
