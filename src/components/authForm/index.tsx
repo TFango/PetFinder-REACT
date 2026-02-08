@@ -35,6 +35,7 @@ export function AuthForm({ mode }: Props) {
 
     if (mode === "email") {
       await checkEmail(email);
+      return;
     }
 
     const password = (
@@ -44,6 +45,7 @@ export function AuthForm({ mode }: Props) {
     if (mode === "login") {
       await login(email, password);
       await getMe();
+      return;
     }
 
     if (mode === "register") {
