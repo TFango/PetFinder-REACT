@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState } from "react";
 import { TextField } from "../../ui/textField";
 import { Button } from "../../ui/button";
 import { useNavigate } from "react-router-dom";
@@ -15,38 +14,23 @@ type Props = {
 
 export function AuthForm({ mode }: Props) {
   const navigate = useNavigate();
-
-  const buttonText = {
-    email: "Continuar",
-    login: "Acceder",
-    register: "Siguiente",
-  }[mode];
-  const { checkEmail, register, login, loading, error } = useAuth();
+  const { checkEmail, register, login, loading } = useAuth();
   const { getMe } = useUser();
 
-  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.currentTarget;
-
-    const emailInput = form.elements.namedItem(
-      "email",
-    ) as HTMLInputElement | null;
-    if (!emailInput) return;
-
-    const email = emailInput.value.trim();
+    if (!email) return;
 
     if (mode === "email") {
       await checkEmail(email);
-      return; // 🔴 CLAVE
+      return;
     }
-
-    const passwordInput = form.elements.namedItem(
-      "password",
-    ) as HTMLInputElement | null;
-    if (!passwordInput) return;
-
-    const password = passwordInput.value.trim();
 
     if (mode === "login") {
       await login(email, password);
@@ -55,28 +39,21 @@ export function AuthForm({ mode }: Props) {
     }
 
     if (mode === "register") {
-      const nameInput = form.elements.namedItem(
-        "name",
-      ) as HTMLInputElement | null;
-      const confirmInput = form.elements.namedItem(
-        "confirmPassword",
-      ) as HTMLInputElement | null;
-
-      if (!nameInput || !confirmInput) return;
-
-      await register(
-        email,
-        password,
-        confirmInput.value.trim(),
-        nameInput.value.trim(),
-      );
+      await register(email, password, confirmPassword, name);
       await getMe();
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} action="" className={styles.root}>
-      <TextField id="email" name="email" type="email" label="EMAIL" />
+    <form onSubmit={handleSubmit} className={styles.root}>
+      <TextField
+        id="email"
+        name="email"
+        type="email"
+        label="EMAIL"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
       {mode === "login" && (
         <TextField
@@ -84,29 +61,44 @@ export function AuthForm({ mode }: Props) {
           name="password"
           type="password"
           label="CONTRASEÑA"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       )}
 
       {mode === "register" && (
         <>
-          <TextField id="name" name="name" type="text" label="NOMBRE" />
+          <TextField
+            id="name"
+            name="name"
+            type="text"
+            label="NOMBRE"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
           <TextField
             id="password"
             name="password"
             type="password"
             label="CONTRASEÑA"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
+
           <TextField
             id="confirmPassword"
             name="confirmPassword"
             type="password"
             label="CONFIRMAR CONTRASEÑA"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </>
       )}
 
       <Button variant="blue" type="submit" disabled={loading}>
-        {loading ? "Cargando..." : buttonText}
+        {loading ? "Cargando..." : "Continuar"}
       </Button>
 
       <section className={styles.info}>
@@ -114,34 +106,11 @@ export function AuthForm({ mode }: Props) {
           <>
             <p className={styles.description}>Aún no tenes cuenta?</p>
             <button
-              className={styles.btn}
               type="button"
+              className={styles.btn}
               onClick={() => navigate("/auth/register")}
             >
-              Registrate.
-            </button>
-          </>
-        )}
-        {mode === "login" && (
-          <>
-            <button
-              className={styles.btn}
-              type="button"
-              onClick={() => navigate("/auth")}
-            >
-              Olvide mi contraseña
-            </button>
-          </>
-        )}
-        {mode === "register" && (
-          <>
-            <p className={styles.description}>Ya tenes una cuenta?</p>
-            <button
-              className={styles.btn}
-              type="button"
-              onClick={() => navigate("/auth/login")}
-            >
-              Iniciar sesión.
+              Registrate
             </button>
           </>
         )}
