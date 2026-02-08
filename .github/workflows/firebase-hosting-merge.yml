@@ -20,6 +20,9 @@ jobs:
 
       - name: Build project
         run: pnpm build
+        env:
+          VITE_API_BASE_URL: https://backend-zuiz.onrender.com
+          VITE_MAPBOX_TOKEN: pk.eyJ1IjoiZW1pdGFhIiwiYSI6ImNtaXJoaXFmczA1eXUzZm9uaXoyenkyaG8ifQ.NTt1XYxjYiH_JtjsmWDfcA
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
